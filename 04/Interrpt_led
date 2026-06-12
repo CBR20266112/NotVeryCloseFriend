@@ -1,0 +1,24 @@
+#include "PinChangeInterrupt.h"  //아까 설치한 인터럽트 라이브러리 불러오는 건가 봐.
+
+int ledPin = 13;
+int buttonPin = 4;
+
+int led_state = LOW;  //led 끈다고?
+bool led_state_changed = false;  //bool은 또 뭐야 황소냐.
+//황소 아니고 참거짓만 저장하는 데이타타입이라고 한다,,
+void buttonPressed() {  //버튼이 눌려있을 경우의 함수?
+  led_state = (led_state == LOW) ? HIGH : LOW;  //led가 꺼져 있으면 ?: ..뭐였더라?
+//아, 삼항연산자, 해보긴 했는데 청년치매. ifelse.. 
+  led_state_changed = true;  //바꿨다고 값 저장해두기.
+}
+void setup() {
+  pinMode(ledPin, OUTPUT);  //출력
+  pinMode(buttonPin, INPUT);  //입력
+  attachPCINT(digitalPinToPCINT(buttonPin), buttonPressed, RISING);  //이것이 무엇인고?
+}  //4번핀 보고 있다가 올라가면 눌렸을때 함수 실행해!
+void loop() {
+  if(led_state_changed) {  //led 바뀌었으면?
+    led_state_changed = false;  //아까 트루값 지워버리기인 거지.
+    digitalWrite(ledPin, led_state);  //....이게 뭔 뜻이여? 
+  }  //아, 저장된 트루펄스값대로 실행하라고~
+}
