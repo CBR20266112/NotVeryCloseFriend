@@ -1,0 +1,14 @@
+int LED[14] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13 };    //led 선언
+
+void setup() {    //프로그램 실행할 때 딱 한 번 실행
+  // LED 초기화
+  for(int i = 0; i < 14; i++) {
+    pinMode(LED[i], OUTPUT);
+  }  // LED 켜기
+  for(int j = 0; j < 14; j++) {
+  digitalWrite(LED[j], HIGH);
+  }
+}
+void loop() {  //반복 실행, 꺼지지 말란 소리.
+
+}
