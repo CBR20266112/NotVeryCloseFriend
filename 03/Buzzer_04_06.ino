@@ -16,18 +16,24 @@ int freq(char note) {  //음계 문자를 받는 함수.
     }
   }
 }
+
 int duration(char beat) {  //아, 이건 박자 지속시간 함수.
   return beat - '0';  //아스키 코드로 숫자 변환해서 뱉기.
 }
-void setup() {  
-  for(int i = 0; i < note_length; i++) {  //노트 길이 끝까지 반복, 연주 끝까지 하란 얘기.
-    if(note[i] != ' ') {  //만약 음계i가 공백이 아니라면?
-      tone(BUZZER, freq(note[i]));  //버저 울려라, freqnote 함수로?
-    }
-    delay(tempo*duration(beat[i]));  //딜레이 시간에도 빠르기*박자 해주란 거지.
-    noTone(BUZZER);  //그만 울어.
-    delay(100);
-  }
+//이렇게 박자 함수랑 음계 함수 해놨고.
+void setup() {  //이제 버튼 재생하는 걸로.
+  pinMode(BUTTON, INPUT); 
 }
 void loop() {
+  int buttonInput = digitalRead(BUTTON);
+  if(buttonInput == HIGH) {
+    for(int i = 0; i < note_length; i++) {  //노트 길이 끝까지 반복, 연주 끝까지 하란 얘기.
+      if(note[i] != ' ') {  //만약 음계i가 공백이 아니라면?
+        tone(BUZZER, freq(note[i]));  //버저 울려라, freqnote 함수로?
+      }
+      delay(tempo*duration(beat[i]));  //딜레이 시간에도 빠르기*박자 해주란 거지.
+      noTone(BUZZER);  //그만 울어.
+      delay(100);
+    }
+  }
 }
